@@ -55,6 +55,26 @@ function detect_emoji($string) {
   return $data;
 }
 
+function is_single_emoji($string) {
+  $all_emoji = detect_emoji($string);
+
+  // If there are more than one or none, return false immediately
+  if(count($all_emoji) != 1)
+    return false;
+
+  $emoji = $all_emoji[0];
+
+  // Check if there are any other characters in the string
+
+  // Remove the emoji found
+  $string = str_replace($emoji['emoji'], '', $string);
+  // If there are any characters left, then the string is not a single emoji
+  if(strlen($string) > 0)
+    return false;
+
+  return $emoji;
+}
+
 function _load_map() {
   return json_decode(file_get_contents(dirname(__FILE__).'/map.json'), true);
 }

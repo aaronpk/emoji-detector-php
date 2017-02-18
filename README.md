@@ -8,6 +8,8 @@ This library will find all emoji in an input string and return information about
 Usage
 -----
 
+### Detect Emoji
+
 ```php
 $input = "Hello 👍🏼 World 👨‍👩‍👦‍👦";
 $emoji = Emoji\detect_emoji($input);
@@ -61,6 +63,43 @@ Array
 * `points_hex` - An array of each unicode code point that makes up this emoji. These are returned as hex strings. This will also include "invisible" characters such as the ZJW character and skin tone modifiers.
 * `hex_str` - A list of all unicode code points in their hex form separated by hyphens. This string is present in the [Slack emoji data](https://github.com/iamcal/emoji-data) array.
 * `skin_tone` - If a skin tone modifier was used in the emoji, this field indicates which skin tone, since the `short_name` will not include the skin tone.
+
+
+### Test if a string is a single emoji
+
+Since simply counting the number of unicode characters in a string does not tell you how many visible emoji are in the string, determining whether a single character is an emoji is more involved. This function will return the emoji data only if the string contains a single emoji character, and false otherwise.
+
+```php
+$emoji = Emoji\is_single_emoji('👨‍👩‍👦‍👦');
+print_r($emoji);
+```
+
+```
+Array
+(
+    [emoji] => 👨‍👩‍👦‍👦
+    [short_name] => man-woman-boy-boy
+    [num_points] => 7
+    [points_hex] => Array
+        (
+            [0] => 1F468
+            [1] => 200D
+            [2] => 1F469
+            [3] => 200D
+            [4] => 1F466
+            [5] => 200D
+            [6] => 1F466
+        )
+
+    [hex_str] => 1F468-200D-1F469-200D-1F466-200D-1F466
+    [skin_tone] =>
+)
+```
+
+```php
+$emoji = Emoji\is_single_emoji('😻🐈');
+// false
+```
 
 
 License

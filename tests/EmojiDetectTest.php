@@ -45,4 +45,25 @@ class EmojiDetectTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('heart', $emoji[1]['short_name']);
   }
 
+  public function testDetectFlagEmoji() {
+    $string = '🇩🇪';
+    $emoji = Emoji\detect_emoji($string);
+    $this->assertEquals(1, count($emoji));
+    $this->assertEquals('flag-de', $emoji[0]['short_name']);
+  }
+
+  public function testDetectSymbolWithModifier() {
+    $string = '♻️';
+    $emoji = Emoji\detect_emoji($string);
+    $this->assertEquals(1, count($emoji));
+    $this->assertEquals('recycle', $emoji[0]['short_name']);
+  }
+
+  public function testDetectCharacterSymbol() {
+    $string = '™';
+    $emoji = Emoji\detect_emoji($string);
+    $this->assertEquals(1, count($emoji));
+    $this->assertEquals('tm', $emoji[0]['short_name']);
+  }
+
 }
