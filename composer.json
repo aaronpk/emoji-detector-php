@@ -1,5 +1,5 @@
 {
-  "name": "p3k/emoji-detector-php",
+  "name": "p3k/emoji-detector",
   "description": "Detect and return all emoji found in a string",
   "type": "library",
   "license": "MIT",
