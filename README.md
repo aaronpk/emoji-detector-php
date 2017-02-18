@@ -60,7 +60,7 @@ Array
 * `emoji` - The emoji sequence found, as the original byte sequence. You can output this to show the original emoji.
 * `short_name` - The short name of the emoji, as defined by [Slack's emoji data](https://github.com/iamcal/emoji-data).
 * `num_points` - The number of unicode code points that this emoji is composed of.
-* `points_hex` - An array of each unicode code point that makes up this emoji. These are returned as hex strings. This will also include "invisible" characters such as the ZJW character and skin tone modifiers.
+* `points_hex` - An array of each unicode code point that makes up this emoji. These are returned as hex strings. This will also include "invisible" characters such as the ZWJ character and skin tone modifiers.
 * `hex_str` - A list of all unicode code points in their hex form separated by hyphens. This string is present in the [Slack emoji data](https://github.com/iamcal/emoji-data) array.
 * `skin_tone` - If a skin tone modifier was used in the emoji, this field indicates which skin tone, since the `short_name` will not include the skin tone.
 
