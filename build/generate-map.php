@@ -14,9 +14,17 @@ foreach($emoji_data as $emoji) {
   }
   if(array_key_exists('skin_variations', $emoji)) {
     foreach($emoji['skin_variations'] as $key=>$var) {
-      $map[$key] = $emoji['short_name'];
+      $map[$emoji['unified'] . '-' . $key] = $emoji['short_name'];
     }
   }
 }
 
 file_put_contents(dirname(__FILE__).'/../src/map.json', json_encode($map));
+
+$keys = array_keys($map);
+usort($keys,function($a,$b){
+    return strlen($b)-strlen($a);
+});
+$all = preg_replace('/\-?([0-9a-f]+)/i', '\x{$1}', implode('|', $keys));
+
+file_put_contents(dirname(__FILE__).'/../src/regexp.json', json_encode($all));
