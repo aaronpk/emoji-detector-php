@@ -1,6 +1,8 @@
 <?php
 namespace Emoji;
 
+define('LONGEST_EMOJI', 8);
+
 function detect_emoji($string) {
   // Find all the emoji in the input string
 
@@ -56,6 +58,9 @@ function detect_emoji($string) {
 }
 
 function is_single_emoji($string) {
+  // If the string is longer than the longest emoji, it's not a single emoji
+  if(mb_strlen($string) >= LONGEST_EMOJI) return false;
+
   $all_emoji = detect_emoji($string);
 
   // If there are more than one or none, return false immediately
