@@ -56,6 +56,9 @@ function detect_emoji($string) {
 }
 
 function is_single_emoji($string) {
+  // If the string is longer than 8, it's not a single emoji
+  if(mb_strlen($string) >= 8) return false;
+
   $all_emoji = detect_emoji($string);
 
   // If there are more than one or none, return false immediately
