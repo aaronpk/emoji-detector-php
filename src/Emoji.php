@@ -4,7 +4,7 @@ namespace Emoji;
 function detect_emoji($string) {
   // Find all the emoji in the input string
 
-  $data = [];
+  $data = array();
 
   static $map;
   if(!isset($map))
@@ -16,7 +16,7 @@ function detect_emoji($string) {
 
   if(preg_match_all($regexp, $string, $matches)) {
     foreach($matches[0] as $ch) {
-      $points = [];
+      $points = array();
       for($i=0; $i<mb_strlen($ch); $i++) {
         $points[] = strtoupper(dechex(uniord(mb_substr($ch, $i, 1))));
       }
@@ -29,26 +29,26 @@ function detect_emoji($string) {
       }
 
       $skin_tone = null;
-      $skin_tones = [
+      $skin_tones = array(
         '1F3FB' => 'skin-tone-2',
         '1F3FC' => 'skin-tone-3',
         '1F3FD' => 'skin-tone-4',
         '1F3FE' => 'skin-tone-5',
         '1F3FF' => 'skin-tone-6',
-      ];
+      );
       foreach($points as $pt) {
         if(array_key_exists($pt, $skin_tones))
           $skin_tone = $skin_tones[$pt];
       }
 
-      $data[] = [
+      $data[] = array(
         'emoji' => $ch,
         'short_name' => $short_name,
         'num_points' => mb_strlen($ch),
         'points_hex' => $points,
         'hex_str' => $hexstr,
         'skin_tone' => $skin_tone,
-      ];
+      );
     }
   }
 

@@ -1,6 +1,6 @@
 <?php
 
-class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
+class EmojiDetectTest extends PHPUnit_Framework_TestCase {
 
   public function testDetectSimpleEmoji() {
     $string = '😻';
