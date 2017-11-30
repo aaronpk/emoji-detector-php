@@ -5,6 +5,15 @@ This library will find all emoji in an input string and return information about
 
 [![Build Status](https://travis-ci.org/aaronpk/emoji-detector-php.svg?branch=master)](https://travis-ci.org/aaronpk/emoji-detector-php)
 
+Installation
+------------
+
+```
+composer require p3k/emoji-detector
+```
+
+Or include `src/Emoji.php` in your project, and make sure the `map.json` and `regexp.json` files are available in the same folder as `Emoji.php`. You don't need any of the other files for use in your own projects.
+
 Usage
 -----
 
