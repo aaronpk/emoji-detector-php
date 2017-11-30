@@ -60,7 +60,7 @@ class EmojiDetectTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testDetectCharacterSymbol() {
-    $string = '™';
+    $string = '™️';
     $emoji = Emoji\detect_emoji($string);
     $this->assertEquals(1, count($emoji));
     $this->assertEquals('tm', $emoji[0]['short_name']);
@@ -85,6 +85,22 @@ class EmojiDetectTest extends PHPUnit_Framework_TestCase {
     $emoji = Emoji\detect_emoji($string);
     $this->assertEquals(1, count($emoji));
     $this->assertEquals('tada', $emoji[0]['short_name']);
+  }
+
+  public function testDetectGenderModifier() {
+    // Added in June 2017 http://www.unicode.org/Public/emoji/5.0/emoji-test.txt
+    $string = 'guardswoman 💂‍♀️';
+    $emoji = Emoji\detect_emoji($string);
+    $this->assertEquals(1, count($emoji));
+    $this->assertEquals('female-guard', $emoji[0]['short_name']);
+  }
+
+  public function testDetectGenderAndSkinToneModifier() {
+    // Added in June 2017 http://www.unicode.org/Public/emoji/5.0/emoji-test.txt
+    $string = 'guardswoman 💂🏼‍♀️';
+    $emoji = Emoji\detect_emoji($string);
+    $this->assertEquals(1, count($emoji));
+    $this->assertEquals('female-guard', $emoji[0]['short_name']);
   }
 
 }

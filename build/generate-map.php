@@ -8,13 +8,25 @@ $emoji_data = json_decode(file_get_contents('https://raw.githubusercontent.com/i
 $map = [];
 
 foreach($emoji_data as $emoji) {
-  $map[$emoji['unified']] = $emoji['short_name'];
-  foreach($emoji['variations'] as $var) {
-    $map[$var] = $emoji['short_name'];
+  $short_name = $emoji['short_name'];
+
+  // Slack changed flag-de shortname to de, but we still want to keep flag-de
+  // Most of the flag emojis are still flag-*, they only changed some of them
+  if(isset($emoji['short_names']) && in_array('flag-'.$short_name, $emoji['short_names'])) {
+    $short_name = 'flag-' . $short_name;
   }
-  if(array_key_exists('skin_variations', $emoji)) {
+
+  $map[$emoji['unified']] = $short_name;
+
+  if(isset($emoji['variations'])) {
+    foreach($emoji['variations'] as $var) {
+      $map[$var] = $short_name;
+    }
+  }
+
+  if(isset($emoji['skin_variations'])) {
     foreach($emoji['skin_variations'] as $key=>$var) {
-      $map[$emoji['unified'] . '-' . $key] = $emoji['short_name'];
+      $map[$var['unified']] = $short_name;
     }
   }
 }
