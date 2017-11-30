@@ -3,6 +3,8 @@ namespace Emoji;
 
 define('LONGEST_EMOJI', 8);
 
+mb_internal_encoding('UTF-8');
+
 function detect_emoji($string) {
   // Find all the emoji in the input string
 
