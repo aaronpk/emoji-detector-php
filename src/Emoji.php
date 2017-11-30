@@ -1,11 +1,13 @@
 <?php
 namespace Emoji;
 
-mb_internal_encoding('UTF-8');
 define('LONGEST_EMOJI', 8);
 
 function detect_emoji($string) {
   // Find all the emoji in the input string
+
+  $prevencoding = mb_internal_encoding();
+  mb_internal_encoding('UTF-8');
 
   $data = array();
 
@@ -54,6 +56,9 @@ function detect_emoji($string) {
       );
     }
   }
+
+  if($prevencoding)
+    mb_internal_encoding($prevencoding);
 
   return $data;
 }
