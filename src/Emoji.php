@@ -69,19 +69,27 @@ function is_single_emoji($string) {
 
   $all_emoji = detect_emoji($string);
 
+  $prevencoding = mb_internal_encoding();
+  mb_internal_encoding('UTF-8');
+
+  $emoji = false;
+
   // If there are more than one or none, return false immediately
-  if(count($all_emoji) != 1)
-    return false;
+  if(count($all_emoji) == 1) {
+    $emoji = $all_emoji[0];
 
-  $emoji = $all_emoji[0];
+    // Check if there are any other characters in the string
 
-  // Check if there are any other characters in the string
+    // Remove the emoji found
+    $string = str_replace($emoji['emoji'], '', $string);
 
-  // Remove the emoji found
-  $string = str_replace($emoji['emoji'], '', $string);
-  // If there are any characters left, then the string is not a single emoji
-  if(strlen($string) > 0)
-    return false;
+    // If there are any characters left, then the string is not a single emoji
+    if(strlen($string) > 0)
+      $emoji = false;
+  }
+
+  if($prevencoding)
+    mb_internal_encoding($prevencoding);
 
   return $emoji;
 }
