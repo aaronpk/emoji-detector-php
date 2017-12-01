@@ -11,6 +11,15 @@ class EmojiDetectTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('1F63B', $emoji[0]['hex_str']);
   }
 
+  public function testDetectEvenSimplerEmoji() {
+    $string = '❤️';
+    $emoji = Emoji\detect_emoji($string);
+    $this->assertEquals(1, count($emoji));
+    $this->assertEquals('❤️', $emoji[0]['emoji']);
+    $this->assertEquals('heart', $emoji[0]['short_name']);
+    $this->assertEquals('2764-FE0F', $emoji[0]['hex_str']);
+  }
+
   public function testDetectEmojiWithZJW() {
     $string = '👨‍👩‍👦‍👦';
     $emoji = Emoji\detect_emoji($string);
