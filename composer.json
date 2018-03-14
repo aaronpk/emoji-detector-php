@@ -18,9 +18,10 @@
   },
   "minimum-stability": "dev",
   "require": {
-    "php": ">=5.3"
+    "php": ">=5.3",
+    "ext-mbstring": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.8"
+    "phpunit/phpunit": "^4.8"
   }
 }
