@@ -12,3 +12,4 @@ matrix:
     - php: 5.3
       dist: precise
 before_script: composer install
+script: php vendor/bin/phpunit
