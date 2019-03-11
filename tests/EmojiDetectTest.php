@@ -127,14 +127,14 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
   }
 
   public function testDetectOffset() {
-    $emojis = [
+    $emojis = array(
         '👩',
         '❤️',
         '💂',
         '👨‍👩‍👦‍👦',
         '👩‍❤️‍👩',
         '♻️'
-    ];
+    );
     $separator = ' word ';
     $string = implode($separator, $emojis);
     $emoji = Emoji\detect_emoji($string);
