@@ -19,8 +19,12 @@ function detect_emoji($string) {
   if(!isset($regexp))
     $regexp = _load_regexp();
 
-  if(preg_match_all($regexp, $string, $matches)) {
-    foreach($matches[0] as $ch) {
+  if(preg_match_all($regexp, $string, $matches, PREG_OFFSET_CAPTURE)) {
+    $emojisLength = 0;
+    foreach($matches[0] as $match) {
+      $ch = $match[0];
+      $offset = $match[1] - $emojisLength;
+      $emojisLength += (strlen($ch) - 1);
       $points = array();
       for($i=0; $i<mb_strlen($ch); $i++) {
         $points[] = strtoupper(dechex(uniord(mb_substr($ch, $i, 1))));
@@ -53,6 +57,7 @@ function detect_emoji($string) {
         'points_hex' => $points,
         'hex_str' => $hexstr,
         'skin_tone' => $skin_tone,
+        'offset' => $offset,
       );
     }
   }
