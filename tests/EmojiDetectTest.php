@@ -149,4 +149,15 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     }
   }
 
+  public function testDetectAndReplace()
+  {
+    $string = 'I like 🌮 and 🌯';
+    while (sizeof($emojis = Emoji\detect_emoji($string)) > 0) {
+      $offset = $emojis[0]['mb_offset'];
+      $length = $emojis[0]['mb_length'];
+      $string = mb_substr($string, 0, $offset).$emojis[0]['short_name'].mb_substr($string, $offset + $length);
+    }
+    $this->assertSame('I like taco and burrito', $string);
+  }
+
 }
