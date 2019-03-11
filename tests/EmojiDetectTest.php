@@ -152,6 +152,12 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
   public function testDetectAndReplace()
   {
     $string = 'I like 🌮 and 🌯';
+    $emojis = Emoji\detect_emoji($string);
+    $this->assertCount(2, $emojis);
+    $this->assertSame(7, $emojis[0]['mb_offset']);
+    $this->assertSame(1, $emojis[0]['mb_length']);
+    $this->assertSame(13, $emojis[1]['mb_offset']);
+    $this->assertSame(1, $emojis[1]['mb_length']);
     while (sizeof($emojis = Emoji\detect_emoji($string)) > 0) {
       $offset = $emojis[0]['mb_offset'];
       $length = $emojis[0]['mb_length'];
