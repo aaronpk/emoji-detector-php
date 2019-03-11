@@ -127,15 +127,26 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
   }
 
   public function testDetectOffset() {
-    $string = 'word 👩 word ❤️ word 💂 word 👨‍👩‍👦‍👦 word 👩‍❤️‍👩 word ♻️';
+    $emojis = [
+        '👩',
+        '❤️',
+        '💂',
+        '👨‍👩‍👦‍👦',
+        '👩‍❤️‍👩',
+        '♻️'
+    ];
+    $separator = ' word ';
+    $string = implode($separator, $emojis);
     $emoji = Emoji\detect_emoji($string);
-    $this->assertCount(6, $emoji);
-    $this->assertSame(5, $emoji[0]['offset']);
-    $this->assertSame(12, $emoji[1]['offset']);
-    $this->assertSame(19, $emoji[2]['offset']);
-    $this->assertSame(26, $emoji[3]['offset']);
-    $this->assertSame(33, $emoji[4]['offset']);
-    $this->assertSame(40, $emoji[5]['offset']);
+    $this->assertCount(sizeof($emojis), $emoji);
+    $currentOffset = 0;
+    $currentMbOffset = 0;
+    foreach ($emojis as $index => $emoj) {
+        $this->assertSame($currentOffset, $emoji[$index]['offset']);
+        $this->assertSame($currentMbOffset, $emoji[$index]['mb_offset']);
+        $currentOffset += strlen($separator) + 1;
+        $currentMbOffset += strlen($separator) + $emoji[$index]['mb_length'];
+    }
   }
 
 }
