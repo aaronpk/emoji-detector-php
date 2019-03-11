@@ -144,8 +144,8 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     foreach ($emojis as $index => $emoj) {
         $this->assertSame($currentOffset, $emoji[$index]['offset']);
         $this->assertSame($currentMbOffset, $emoji[$index]['mb_offset']);
-        $currentOffset += strlen($separator) + 1;
-        $currentMbOffset += strlen($separator) + $emoji[$index]['mb_length'];
+        $currentOffset += mb_strlen($separator) + 1;
+        $currentMbOffset += mb_strlen($separator) + $emoji[$index]['mb_length'];
     }
   }
 
