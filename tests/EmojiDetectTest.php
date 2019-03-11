@@ -161,7 +161,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     while (sizeof($emojis = Emoji\detect_emoji($string)) > 0) {
       $offset = $emojis[0]['mb_offset'];
       $length = $emojis[0]['mb_length'];
-      $string = mb_substr($string, 0, $offset).$emojis[0]['short_name'].mb_substr($string, $offset + $length);
+      $string = mb_substr($string, 0, $offset, 'UTF-8').$emojis[0]['short_name'].mb_substr($string, $offset + $length, null, 'UTF-8');
     }
     $this->assertSame('I like taco and burrito', $string);
   }
