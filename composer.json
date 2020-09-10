@@ -16,6 +16,11 @@
       "src/Emoji.php"
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Emoji\\": "tests"
+    }
+  },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
