@@ -3,8 +3,6 @@ Emoji Detection
 
 This library will find all emoji in an input string and return information about each emoji character. It supports emoji with skin tone modifiers, as well as the composite emoji that are made up of multiple people.
 
-[![Build Status](https://travis-ci.org/aaronpk/emoji-detector-php.svg?branch=master)](https://travis-ci.org/aaronpk/emoji-detector-php)
-
 Installation
 ------------
 
