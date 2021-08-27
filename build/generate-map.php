@@ -31,7 +31,7 @@ foreach($emoji_data as $emoji) {
   }
 }
 
-file_put_contents(dirname(__FILE__).'/../src/map.json', json_encode($map));
+file_put_contents(dirname(__FILE__).'/../src/map.json', json_encode($map, JSON_PRETTY_PRINT));
 
 $keys = array_keys($map);
 usort($keys,function($a,$b){
