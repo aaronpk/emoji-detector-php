@@ -85,7 +85,7 @@ Array
 #### Replace emoji with string representations
 
 ```php
-$string = Emoji\replace_emoji('I like 🌮 and 🌯');
+$string = Emoji\replace_emoji('I like 🌮 and 🌯', ':', ':');
 echo $string;
 // I like :taco: and :burrito:
 ```
