@@ -119,6 +119,9 @@ Array
 
     [hex_str] => 1F468-200D-1F469-200D-1F466-200D-1F466
     [skin_tone] =>
+    [offset] => 0
+    [mb_offset] => 0
+    [mb_length] => 7
 )
 ```
 
@@ -131,7 +134,7 @@ $emoji = Emoji\is_single_emoji('😻🐈');
 License
 -------
 
-Copyright 2017 by Aaron Parecki.
+Copyright 2017-2021 by Aaron Parecki.
 
 Available under the MIT license.
 
