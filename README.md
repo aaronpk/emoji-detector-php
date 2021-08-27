@@ -77,6 +77,27 @@ Array
 * `points_hex` - An array of each unicode code point that makes up this emoji. These are returned as hex strings. This will also include "invisible" characters such as the ZWJ character and skin tone modifiers.
 * `hex_str` - A list of all unicode code points in their hex form separated by hyphens. This string is present in the [Slack emoji data](https://github.com/iamcal/emoji-data) array.
 * `skin_tone` - If a skin tone modifier was used in the emoji, this field indicates which skin tone, since the `short_name` will not include the skin tone.
+* `offset` - The position of the emoji in the string as if emojis had length of 1
+* `mb_offset` - The position of the emoji in the multi-byte string
+* `mb_length` - The multi-byte length of the emoji
+
+
+#### Replace emoji with string representations
+
+```php
+$string = 'I like 🌮 and 🌯';
+$emojis = Emoji\detect_emoji($string);
+while (sizeof($emojis = Emoji\detect_emoji($string)) > 0) {
+  $offset = $emojis[0]['mb_offset'];
+  $length = $emojis[0]['mb_length'];
+  $strlen = mb_strlen($string, 'UTF-8');
+  $start = mb_substr($string, 0, $offset, 'UTF-8');
+  $end = mb_substr($string, $offset + $length, $strlen - ($offset + $length), 'UTF-8');
+  $string = $start.':'.$emojis[0]['short_name'].':'.$end;
+}
+echo $string;
+// I like :taco: and :burrito:
+```
 
 
 ### Test if a string is a single emoji
