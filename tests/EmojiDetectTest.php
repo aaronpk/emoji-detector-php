@@ -159,7 +159,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame(1, $emojis[0]['mb_length']);
     $this->assertSame(13, $emojis[1]['mb_offset']);
     $this->assertSame(1, $emojis[1]['mb_length']);
-    while (sizeof($emojis = Emoji\detect_emoji($string)) > 0) {
+    while (sizeof($emojis = detect_emoji($string)) > 0) {
       $offset = $emojis[0]['mb_offset'];
       $length = $emojis[0]['mb_length'];
       $strLength = mb_strlen($string, 'UTF-8');
