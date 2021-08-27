@@ -29,38 +29,45 @@ The function returns an array with details about each emoji found in the string.
 ```
 Array
 (
-  [0] => Array
-    (
-      [emoji] => 👨‍👩‍👦‍👦
-      [short_name] => man-woman-boy-boy
-      [num_points] => 7
-      [points_hex] => Array
+    [0] => Array
         (
-          [0] => 1F468
-          [1] => 200D
-          [2] => 1F469
-          [3] => 200D
-          [4] => 1F466
-          [5] => 200D
-          [6] => 1F466
-        )
-      [hex_str] => 1F468-200D-1F469-200D-1F466-200D-1F466
-      [skin_tone] =>
-    )
-  [1] => Array
-    (
-      [emoji] => 👍🏼
-      [short_name] => +1
-      [num_points] => 2
-      [points_hex] => Array
-        (
-          [0] => 1F44D
-          [1] => 1F3FC
+            [emoji] => 👍🏼
+            [short_name] => +1
+            [num_points] => 2
+            [points_hex] => Array
+                (
+                    [0] => 1F44D
+                    [1] => 1F3FC
+                )
+            [hex_str] => 1F44D-1F3FC
+            [skin_tone] => skin-tone-3
+            [offset] => 6
+            [mb_offset] => 6
+            [mb_length] => 2
         )
 
-      [hex_str] => 1F44D-1F3FC
-      [skin_tone] => skin-tone-3
-    )
+    [1] => Array
+        (
+            [emoji] => 👨‍👩‍👦‍👦
+            [short_name] => man-woman-boy-boy
+            [num_points] => 7
+            [points_hex] => Array
+                (
+                    [0] => 1F468
+                    [1] => 200D
+                    [2] => 1F469
+                    [3] => 200D
+                    [4] => 1F466
+                    [5] => 200D
+                    [6] => 1F466
+                )
+            [hex_str] => 1F468-200D-1F469-200D-1F466-200D-1F466
+            [skin_tone] =>
+            [offset] => 14
+            [mb_offset] => 15
+            [mb_length] => 7
+        )
+
 )
 ```
 
