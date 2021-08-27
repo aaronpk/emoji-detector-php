@@ -74,6 +74,14 @@ function detect_emoji($string) {
   return $data;
 }
 
+function get_first_emoji($string) {
+  $emojis = detect_emoji($string);
+  if(count($emojis))
+    return $emojis[0];
+  else
+    return null;
+}
+
 function is_single_emoji($string) {
   $prevencoding = mb_internal_encoding();
   mb_internal_encoding('UTF-8');
@@ -103,6 +111,18 @@ function is_single_emoji($string) {
     mb_internal_encoding($prevencoding);
 
   return $emoji;
+}
+
+function replace_emoji($string, $prefix='', $suffix='') {
+  while ($emoji = get_first_emoji($string)) {
+    $offset = $emoji['mb_offset'];
+    $length = $emoji['mb_length'];
+    $strlen = mb_strlen($string, 'UTF-8');
+    $start = mb_substr($string, 0, $offset, 'UTF-8');
+    $end = mb_substr($string, $offset + $length, $strlen - ($offset + $length), 'UTF-8');
+    $string = $start.$prefix.$emoji['short_name'].$suffix.$end;
+  }
+  return $string;
 }
 
 function _load_map() {

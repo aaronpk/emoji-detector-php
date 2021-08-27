@@ -85,16 +85,7 @@ Array
 #### Replace emoji with string representations
 
 ```php
-$string = 'I like 🌮 and 🌯';
-$emojis = Emoji\detect_emoji($string);
-while (sizeof($emojis = Emoji\detect_emoji($string)) > 0) {
-  $offset = $emojis[0]['mb_offset'];
-  $length = $emojis[0]['mb_length'];
-  $strlen = mb_strlen($string, 'UTF-8');
-  $start = mb_substr($string, 0, $offset, 'UTF-8');
-  $end = mb_substr($string, $offset + $length, $strlen - ($offset + $length), 'UTF-8');
-  $string = $start.':'.$emojis[0]['short_name'].':'.$end;
-}
+$string = Emoji\replace_emoji('I like 🌮 and 🌯');
 echo $string;
 // I like :taco: and :burrito:
 ```
