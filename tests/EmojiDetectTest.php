@@ -150,8 +150,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     }
   }
 
-  public function testDetectAndReplace()
-  {
+  public function testDetectAndReplace() {
     $string = 'I like 🌮 and 🌯';
     $emojis = detect_emoji($string);
     $this->assertCount(2, $emojis);
@@ -169,5 +168,40 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     }
     $this->assertSame('I like taco and burrito', $string);
   }
+
+  public function testEmoji13_0() {
+    # Spot check a few emoji from Emoji 13.0
+    # https://emojipedia.org/emoji-13.0/
+    $string = '🫁 🤌🏽 🤵🏾‍♀️';
+    $emojis = detect_emoji($string);
+    $this->assertCount(3, $emojis);
+    $this->assertSame('lungs', $emojis[0]['short_name']);
+    $this->assertSame('pinched_fingers', $emojis[1]['short_name']);
+    $this->assertSame('skin-tone-4', $emojis[1]['skin_tone']);
+    $this->assertSame('woman_in_tuxedo', $emojis[2]['short_name']);
+    $this->assertSame('skin-tone-5', $emojis[2]['skin_tone']);
+  }
+
+  public function testEmoji13_1() {
+    # Spot check a few emoji from Emoji 13.1
+    # https://emojipedia.org/emoji-13.1/
+    $string = '❤️‍🔥 👩🏿‍❤️‍💋‍👨🏽 ❤️‍🩹';
+    $emojis = detect_emoji($string);
+    $this->assertCount(3, $emojis);
+    $this->assertSame('heart_on_fire', $emojis[0]['short_name']);
+    $this->assertSame('woman-kiss-man', $emojis[1]['short_name']);
+    $this->assertSame('mending_heart', $emojis[2]['short_name']);
+  }
+
+  /*
+  public function testEmoji14_0() {
+    # Spot check a few emoji from Emoji 14.0
+    # https://emojipedia.org/emoji-14.0/
+    $string = '🫳';
+    $emojis = detect_emoji($string);
+    $this->assertCount(1, $emojis);
+    print_r($emojis);
+  }
+  */
 
 }
