@@ -16,12 +16,18 @@
       "src/Emoji.php"
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Emoji\\": "tests"
+    }
+  },
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
-    "php": ">=5.3",
+    "php": ">=7.2",
     "ext-mbstring": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8"
+    "phpunit/phpunit": "^8.5"
   }
 }
