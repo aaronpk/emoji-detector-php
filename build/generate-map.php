@@ -10,6 +10,10 @@ $map = [];
 foreach($emoji_data as $emoji) {
   $short_name = $emoji['short_name'];
 
+  if(isset($emoji['non_qualified'])) {
+    $map[$emoji['non_qualified']] = $short_name;
+  }
+
   // Slack changed flag-de shortname to de, but we still want to keep flag-de
   // Most of the flag emojis are still flag-*, they only changed some of them
   if(isset($emoji['short_names']) && in_array('flag-'.$short_name, $emoji['short_names'])) {

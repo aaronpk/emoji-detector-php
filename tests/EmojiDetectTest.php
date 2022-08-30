@@ -21,9 +21,18 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('heart', $emoji[0]['short_name']);
     $this->assertSame('2764-FE0F', $emoji[0]['hex_str']);
     $this->assertSame(0, $emoji[0]['byte_offset']);
+
+    $string = '☂';
+    $emoji = detect_emoji($string);
+    $this->assertCount(1, $emoji);
+    $this->assertSame('☂', $emoji[0]['emoji']);
+    $this->assertSame('umbrella', $emoji[0]['short_name']);
+    $this->assertSame('2602', $emoji[0]['hex_str']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
+    $this->assertSame('☂', is_single_emoji($string)['emoji']);
   }
 
-  public function testDetectEmojiWithZJW() {
+  public function testDetectEmojiWithZWJ() {
     $string = '👨‍👩‍👦‍👦';
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
@@ -32,12 +41,19 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
-  public function testDetectEmojiWithZJW2() {
+  public function testDetectEmojiWithZWJ2() {
     $string = '👩‍❤️‍👩';
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
     $this->assertSame('woman-heart-woman', $emoji[0]['short_name']);
     $this->assertSame('1F469-200D-2764-FE0F-200D-1F469', $emoji[0]['hex_str']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
+
+    $string = '👩‍❤️‍💋‍👨';
+    $emoji = detect_emoji($string);
+    $this->assertCount(1, $emoji);
+    $this->assertSame('woman-kiss-man', $emoji[0]['short_name']);
+    $this->assertSame('1F469-200D-2764-FE0F-200D-1F48B-200D-1F468', $emoji[0]['hex_str']);
     $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
