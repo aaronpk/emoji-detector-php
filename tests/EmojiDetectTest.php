@@ -10,7 +10,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('😻', $emoji[0]['emoji']);
     $this->assertSame('heart_eyes_cat', $emoji[0]['short_name']);
     $this->assertSame('1F63B', $emoji[0]['hex_str']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectEvenSimplerEmoji() {
@@ -20,7 +20,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('❤️', $emoji[0]['emoji']);
     $this->assertSame('heart', $emoji[0]['short_name']);
     $this->assertSame('2764-FE0F', $emoji[0]['hex_str']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectEmojiWithZJW() {
@@ -29,7 +29,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertCount(1, $emoji);
     $this->assertSame('man-woman-boy-boy', $emoji[0]['short_name']);
     $this->assertSame('1F468-200D-1F469-200D-1F466-200D-1F466', $emoji[0]['hex_str']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectEmojiWithZJW2() {
@@ -38,7 +38,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertCount(1, $emoji);
     $this->assertSame('woman-heart-woman', $emoji[0]['short_name']);
     $this->assertSame('1F469-200D-2764-FE0F-200D-1F469', $emoji[0]['hex_str']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectEmojiWithSkinTone() {
@@ -49,7 +49,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('+1', $emoji[0]['short_name']);
     $this->assertSame('1F44D-1F3FC', $emoji[0]['hex_str']);
     $this->assertSame('skin-tone-3', $emoji[0]['skin_tone']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectMultipleEmoji() {
@@ -58,8 +58,8 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertCount(2, $emoji);
     $this->assertSame('woman', $emoji[0]['short_name']);
     $this->assertSame('heart', $emoji[1]['short_name']);
-    $this->assertSame(0, $emoji[0]['offset']);
-    $this->assertSame(1, $emoji[1]['offset']);
+    $this->assertSame(0, $emoji[0]['grapheme_offset']);
+    $this->assertSame(1, $emoji[1]['grapheme_offset']);
   }
 
   public function testDetectFlagEmoji() {
@@ -67,7 +67,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
     $this->assertSame('flag-de', $emoji[0]['short_name']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectSymbolWithModifier() {
@@ -75,7 +75,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
     $this->assertSame('recycle', $emoji[0]['short_name']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectCharacterSymbol() {
@@ -83,7 +83,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
     $this->assertSame('tm', $emoji[0]['short_name']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectEmojiWithZJW3() {
@@ -92,7 +92,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertCount(1, $emoji);
     $this->assertSame('rainbow-flag', $emoji[0]['short_name']);
     $this->assertSame('1F3F3-FE0F-200D-1F308', $emoji[0]['hex_str']);
-    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
   public function testDetectText() {
@@ -106,7 +106,8 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
     $this->assertSame('tada', $emoji[0]['short_name']);
-    $this->assertSame(12, $emoji[0]['offset']);
+    $this->assertSame(12, $emoji[0]['grapheme_offset']);
+    $this->assertSame(12, $emoji[0]['byte_offset']);
   }
 
   public function testDetectGenderModifier() {
@@ -115,7 +116,8 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
     $this->assertSame('female-guard', $emoji[0]['short_name']);
-    $this->assertSame(12, $emoji[0]['offset']);
+    $this->assertSame(12, $emoji[0]['grapheme_offset']);
+    $this->assertSame(12, $emoji[0]['byte_offset']);
   }
 
   public function testDetectGenderAndSkinToneModifier() {
@@ -124,7 +126,8 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
     $this->assertSame('female-guard', $emoji[0]['short_name']);
-    $this->assertSame(12, $emoji[0]['offset']);
+    $this->assertSame(12, $emoji[0]['byte_offset']);
+    $this->assertSame(12, $emoji[0]['grapheme_offset']);
   }
 
   public function testDetectOffset() {
@@ -146,46 +149,49 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $currentOffset = 0;
     $currentMbOffset = 0;
 
-    $this->assertSame(0, $emoji[0]['offset']);
-    $this->assertSame(0, $emoji[0]['mb_offset']);
+    $index = 0;
 
-    $this->assertSame(7, $emoji[1]['offset']);
-    $this->assertSame(7, $emoji[1]['mb_offset']);
+    $this->assertSame($index, $emoji[0]['byte_offset']);
+    $this->assertSame(0, $emoji[0]['grapheme_offset']);
 
-    $this->assertSame(14, $emoji[2]['offset']);
-    $this->assertSame(15, $emoji[2]['mb_offset']);
+    $index += strlen($emoji[0]['emoji'].' word ');
 
-    $this->assertSame(21, $emoji[3]['offset']);
-    $this->assertSame(22, $emoji[3]['mb_offset']);
+    $this->assertSame($index, $emoji[1]['byte_offset']);
+    $this->assertSame(7, $emoji[1]['grapheme_offset']);
 
-    $this->assertSame(28, $emoji[4]['offset']);
-    $this->assertSame(35, $emoji[4]['mb_offset']);
+    $index += strlen($emoji[1]['emoji'].' word ');
 
-    $this->assertSame(35, $emoji[5]['offset']);
-    $this->assertSame(47, $emoji[5]['mb_offset']);
+    $this->assertSame($index, $emoji[2]['byte_offset']);
+    $this->assertSame(14, $emoji[2]['grapheme_offset']);
 
-    foreach ($emojis as $index => $emoj) {
-        $this->assertSame($currentOffset, $emoji[$index]['offset']);
-        $this->assertSame($currentMbOffset, $emoji[$index]['mb_offset']);
-        $currentOffset += mb_strlen($separator) + 1;
-        $currentMbOffset += mb_strlen($separator) + $emoji[$index]['mb_length'];
-    }
+    $index += strlen($emoji[2]['emoji'].' word ');
+
+    $this->assertSame($index, $emoji[3]['byte_offset']);
+    $this->assertSame(21, $emoji[3]['grapheme_offset']);
+
+    $index += strlen($emoji[3]['emoji'].' word ');
+
+    $this->assertSame($index, $emoji[4]['byte_offset']);
+    $this->assertSame(28, $emoji[4]['grapheme_offset']);
+
+    $index += strlen($emoji[4]['emoji'].' word ');
+
+    $this->assertSame($index, $emoji[5]['byte_offset']);
+    $this->assertSame(35, $emoji[5]['grapheme_offset']);
   }
 
   public function testDetectAndReplace() {
     $string = 'I like 🌮 and 🌯';
     $emojis = detect_emoji($string);
     $this->assertCount(2, $emojis);
-    $this->assertSame(7, $emojis[0]['mb_offset']);
-    $this->assertSame(1, $emojis[0]['mb_length']);
-    $this->assertSame(13, $emojis[1]['mb_offset']);
-    $this->assertSame(1, $emojis[1]['mb_length']);
+    $this->assertSame(7, $emojis[0]['grapheme_offset']);
+    $this->assertSame(13, $emojis[1]['grapheme_offset']);
     while (sizeof($emojis = detect_emoji($string)) > 0) {
-      $offset = $emojis[0]['mb_offset'];
-      $length = $emojis[0]['mb_length'];
-      $strLength = mb_strlen($string, 'UTF-8');
-      $start = mb_substr($string, 0, $offset, 'UTF-8');
-      $end = mb_substr($string, $offset + $length, $strLength - ($offset + $length), 'UTF-8');
+      $offset = $emojis[0]['byte_offset'];
+      $length = strlen($emojis[0]['emoji']);
+      $strLength = strlen($string);
+      $start = substr($string, 0, $offset);
+      $end = substr($string, $offset + $length, $strLength - ($offset + $length));
       $string = $start.$emojis[0]['short_name'].$end;
     }
     $this->assertSame('I like taco and burrito', $string);
@@ -223,6 +229,35 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertCount(2, $emojis);
     $this->assertSame('palm_down_hand', $emojis[0]['short_name']);
     $this->assertSame('pouring_liquid', $emojis[1]['short_name']);
+  }
+
+  public function testLongEmojiString() {
+    $string = "⬛️⬛️⬛️⬛️⬛ ️⬛️⬛️⬛️⬛️⬛ ️☎️🙅🏻‍♀️🙅🏾‍♂️⬛️⬛️⬛️⬛️⬛️📲🎉⬛️⬛️⬛️⬛️⬛️a⬛️b⬛️c⬛️d⬛️e⬛ ️";
+    $emojis = detect_emoji($string);
+    $this->assertCount(30, $emojis);
+  }
+
+  public function testUnrecognizedChars() {
+    $string = "Not Wordle, just us improving your contact center experience. \n\n⬛️⬛️⬛️⬛️⬛ ️\n⬛️⬛️⬛️⬛️⬛ ️\n☎️🙅🏻‍♀️🙅🏾‍♂️⬛️⬛️\n⬛️⬛️⬛️📲🎉\n⬛️⬛️⬛️⬛️⬛️\n⬛️⬛️⬛️⬛️⬛ ️";
+    $emojis = detect_emoji($string);
+    $this->assertCount(30, $emojis);
+    $this->assertSame('⬛', $emojis[29]['emoji']);
+  }
+
+  public function testOffsets() {
+    $string = "åक😱äbç";
+    $this->assertSame(6, grapheme_strlen($string));
+    $emojis = detect_emoji($string);
+    $this->assertSame(2, $emojis[0]['grapheme_offset']);
+    $this->assertSame(6, $emojis[0]['byte_offset']);
+    $prefix = grapheme_substr($string, 0, $emojis[0]['grapheme_offset']);
+    $this->assertSame('åक', $prefix);
+    $prefix = substr($string, 0, $emojis[0]['byte_offset']);
+    $this->assertSame('åक', $prefix);
+    $suffix = grapheme_substr($string, $emojis[0]['grapheme_offset']+1);
+    $this->assertSame('äbç', $suffix);
+    $suffix = substr($string, $emojis[0]['byte_offset']+strlen($emojis[0]['emoji']));
+    $this->assertSame('äbç', $suffix);
   }
 
 }

@@ -20,15 +20,18 @@ function detect_emoji($string) {
     $regexp = _load_regexp();
 
   if(preg_match_all($regexp, $string, $matches, PREG_OFFSET_CAPTURE)) {
-    $emojisLength = 0;
-    $lastMbOffset = 0;
+    $lastGOffset = 0;
     foreach($matches[0] as $match) {
-      $ch = $match[0];
-      $offset = $match[1] - $emojisLength;
-      $mbOffset = mb_strpos($string, $ch, $lastMbOffset);
-      $mbLength = mb_strlen($ch);
-      $lastMbOffset = $offset + $mbLength;
-      $emojisLength += (strlen($ch) - 1);
+      $ch = $match[0]; // the actual emoji char found by the regex, may be multiple bytes
+      $mbLength = mb_strlen($ch); // the length of the emoji, mb chars are counted as 1
+
+      $offset = $match[1];
+
+      // echo mb_strlen($string)." found emoji length: ".strlen($ch)." lastGOffset: $lastGOffset mbLength: $mbLength\n";
+
+      $gOffset = grapheme_strpos($string, $ch, $lastGOffset);
+      $lastGOffset = $gOffset+1;
+
       $points = array();
       for($i=0; $i<$mbLength; $i++) {
         $points[] = strtoupper(dechex(uniord(mb_substr($ch, $i, 1))));
@@ -61,9 +64,8 @@ function detect_emoji($string) {
         'points_hex' => $points,
         'hex_str' => $hexstr,
         'skin_tone' => $skin_tone,
-        'offset' => $offset,
-        'mb_offset' => $mbOffset,
-        'mb_length' => $mbLength
+        'byte_offset' => $offset,       // The position of the emoji in the string, counting each byte
+        'grapheme_offset' => $gOffset,  // The grapheme-based position of the emoji in the string
       );
     }
   }
@@ -115,11 +117,11 @@ function is_single_emoji($string) {
 
 function replace_emoji($string, $prefix='', $suffix='') {
   while ($emoji = get_first_emoji($string)) {
-    $offset = $emoji['mb_offset'];
-    $length = $emoji['mb_length'];
-    $strlen = mb_strlen($string, 'UTF-8');
-    $start = mb_substr($string, 0, $offset, 'UTF-8');
-    $end = mb_substr($string, $offset + $length, $strlen - ($offset + $length), 'UTF-8');
+    $offset = $emoji['byte_offset'];
+    $length = strlen($emoji['emoji']);
+    $strlen = strlen($string);
+    $start = substr($string, 0, $offset);
+    $end = substr($string, $offset + $length, $strlen - ($offset + $length));
     $string = $start.$prefix.$emoji['short_name'].$suffix.$end;
   }
   return $string;

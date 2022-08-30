@@ -7,14 +7,14 @@ class EmojiSingleTest extends \PHPUnit\Framework\TestCase {
     $string = '😻';
     $emoji = is_single_emoji($string);
     $this->assertSame($string, $emoji['emoji']);
-    $this->assertSame(0, $emoji['offset']);
+    $this->assertSame(0, $emoji['byte_offset']);
   }
 
   public function testSingleCompositeEmoji() {
     $string = '👨‍👩‍👦‍👦';
     $emoji = is_single_emoji($string);
     $this->assertSame($string, $emoji['emoji']);
-    $this->assertSame(0, $emoji['offset']);
+    $this->assertSame(0, $emoji['byte_offset']);
   }
 
   public function testMultipleEmoji() {
