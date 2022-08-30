@@ -138,10 +138,32 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     );
     $separator = ' word ';
     $string = implode($separator, $emojis);
+
+    // $string = '👩 word ❤️ word 💂 word 👨‍👩‍👦‍👦 word 👩‍❤️‍👩 word ♻️';
+
     $emoji = detect_emoji($string);
     $this->assertCount(sizeof($emojis), $emoji);
     $currentOffset = 0;
     $currentMbOffset = 0;
+
+    $this->assertSame(0, $emoji[0]['offset']);
+    $this->assertSame(0, $emoji[0]['mb_offset']);
+
+    $this->assertSame(7, $emoji[1]['offset']);
+    $this->assertSame(7, $emoji[1]['mb_offset']);
+
+    $this->assertSame(14, $emoji[2]['offset']);
+    $this->assertSame(15, $emoji[2]['mb_offset']);
+
+    $this->assertSame(21, $emoji[3]['offset']);
+    $this->assertSame(22, $emoji[3]['mb_offset']);
+
+    $this->assertSame(28, $emoji[4]['offset']);
+    $this->assertSame(35, $emoji[4]['mb_offset']);
+
+    $this->assertSame(35, $emoji[5]['offset']);
+    $this->assertSame(47, $emoji[5]['mb_offset']);
+
     foreach ($emojis as $index => $emoj) {
         $this->assertSame($currentOffset, $emoji[$index]['offset']);
         $this->assertSame($currentMbOffset, $emoji[$index]['mb_offset']);
