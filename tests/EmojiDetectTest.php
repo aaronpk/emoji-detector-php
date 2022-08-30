@@ -193,15 +193,14 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('mending_heart', $emojis[2]['short_name']);
   }
 
-  /*
   public function testEmoji14_0() {
     # Spot check a few emoji from Emoji 14.0
     # https://emojipedia.org/emoji-14.0/
-    $string = '🫳';
+    $string = '🫳🫗';
     $emojis = detect_emoji($string);
-    $this->assertCount(1, $emojis);
-    print_r($emojis);
+    $this->assertCount(2, $emojis);
+    $this->assertSame('palm_down_hand', $emojis[0]['short_name']);
+    $this->assertSame('pouring_liquid', $emojis[1]['short_name']);
   }
-  */
 
 }
