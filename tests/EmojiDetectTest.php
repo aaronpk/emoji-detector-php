@@ -32,6 +32,26 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('☂', is_single_emoji($string)['emoji']);
   }
 
+  public function testDetectEmoji15() {
+    $string = '🫨';
+    $emoji = detect_emoji($string);
+    $this->assertCount(1, $emoji);
+    $this->assertSame('🫨', $emoji[0]['emoji']);
+    $this->assertSame('shaking_face', $emoji[0]['short_name']);
+    $this->assertSame('1FAE8', $emoji[0]['hex_str']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
+    $this->assertSame('🫨', is_single_emoji($string)['emoji']);
+
+    $string = '🪿';
+    $emoji = detect_emoji($string);
+    $this->assertCount(1, $emoji);
+    $this->assertSame('🪿', $emoji[0]['emoji']);
+    $this->assertSame('goose', $emoji[0]['short_name']);
+    $this->assertSame('1FABF', $emoji[0]['hex_str']);
+    $this->assertSame(0, $emoji[0]['byte_offset']);
+    $this->assertSame('🪿', is_single_emoji($string)['emoji']);
+  }
+
   public function testDetectEmojiWithZWJ() {
     $string = '👨‍👩‍👦‍👦';
     $emoji = detect_emoji($string);
