@@ -1,9 +1,10 @@
 <?php
 // Build the mapping array of hex unicode code point lists to shortnames.
 // From Slack's emoji.json
+// https://github.com/iamcal/emoji-data
 // https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji_pretty.json
 
-$emoji_data = json_decode(file_get_contents('https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji_pretty.json'), true);
+$emoji_data = json_decode(file_get_contents('https://raw.githubusercontent.com/iamcal/emoji-data/10073d54cccceeba32a9d3199601b7d46fa9c0ac/emoji_pretty.json'), true);
 
 $map = [];
 
