@@ -13,7 +13,7 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame(0, $emoji[0]['byte_offset']);
   }
 
-  public function testDetectEvenSimplerEmoji() {
+  public function testQualifiedEmoji() {
     $string = '❤️';
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
@@ -21,7 +21,9 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('heart', $emoji[0]['short_name']);
     $this->assertSame('2764-FE0F', $emoji[0]['hex_str']);
     $this->assertSame(0, $emoji[0]['byte_offset']);
+  }
 
+  public function testDetectUnqualifiedEmoji() {
     $string = '☂';
     $emoji = detect_emoji($string);
     $this->assertCount(1, $emoji);
@@ -30,6 +32,36 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('2602', $emoji[0]['hex_str']);
     $this->assertSame(0, $emoji[0]['byte_offset']);
     $this->assertSame('☂', is_single_emoji($string)['emoji']);
+  }
+
+  public function testMixedUnqualifiedEmoji() {
+    $string = '❤️❤❤️❤';
+    $emojis = detect_emoji($string);
+    $this->assertCount(4, $emojis);
+
+    $emoji = array_shift($emojis);
+    $this->assertSame('❤️', $emoji['emoji']);
+    $this->assertSame('heart', $emoji['short_name']);
+    $this->assertSame('2764-FE0F', $emoji['hex_str']);
+    $this->assertSame(0, $emoji['byte_offset']);
+
+    $emoji = array_shift($emojis);
+    $this->assertSame('❤', $emoji['emoji']);
+    $this->assertSame('heart', $emoji['short_name']);
+    $this->assertSame('2764', $emoji['hex_str']);
+    $this->assertSame(6, $emoji['byte_offset']);
+
+    $emoji = array_shift($emojis);
+    $this->assertSame('❤️', $emoji['emoji']);
+    $this->assertSame('heart', $emoji['short_name']);
+    $this->assertSame('2764-FE0F', $emoji['hex_str']);
+    $this->assertSame(9, $emoji['byte_offset']);
+
+    $emoji = array_shift($emojis);
+    $this->assertSame('❤', $emoji['emoji']);
+    $this->assertSame('heart', $emoji['short_name']);
+    $this->assertSame('2764', $emoji['hex_str']);
+    $this->assertSame(15, $emoji['byte_offset']);
   }
 
   public function testDetectEmojiWithZWJ() {
