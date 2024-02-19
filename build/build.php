@@ -4,7 +4,7 @@
 // https://github.com/iamcal/emoji-data
 // https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji_pretty.json
 
-$emoji_data = json_decode(file_get_contents('https://raw.githubusercontent.com/iamcal/emoji-data/10073d54cccceeba32a9d3199601b7d46fa9c0ac/emoji_pretty.json'), true);
+$emoji_data = json_decode(file_get_contents('https://raw.githubusercontent.com/iamcal/emoji-data/master/emoji_pretty.json'), true);
 
 $map = [];
 
@@ -56,9 +56,23 @@ $keys = array_keys($map);
 usort($keys,function($a,$b){
     return strlen($b)-strlen($a);
 });
-$all = preg_replace('/\-?([0-9a-f]+)/i', '\x{$1}', implode('|', $keys));
 
-file_put_contents(dirname(__FILE__).'/../src/regexp.json', json_encode($all));
+
+$codepoints = [];
+$baseCodepoints = [];
+foreach($keys as $key) {
+  $str = "";
+  $parts = explode('-', $key);
+  foreach($parts as $part) {
+    $str .= mb_chr(hexdec($part));
+  }
+  $codepoints[] = $str;
+
+  if(count($parts) == 1) {
+    $baseCodepoints[] = mb_chr(hexdec($parts[0]));
+  }
+}
+file_put_contents(__DIR__.'/../src/base-codepoints.json', json_encode($baseCodepoints));
+
 echo "Found ".count($keys)." emoji\n";
-
 

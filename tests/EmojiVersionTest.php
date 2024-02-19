@@ -57,18 +57,17 @@ class EmojiVersionTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('🪿', is_single_emoji($string)['emoji']);
   }
 
-  /*
   public function testEmoji51_1() {
     # Spot check a few emoji from Emoji 15.1
     # https://emojipedia.org/emoji-15.1/
-    $string = '🍋🏃‍♀️‍➡️🐦‍🔥🙂‍↕️';
+    $string = '🍋‍🟩🏃‍♀️‍➡️🐦‍🔥🙂‍↕️';
     $emojis = detect_emoji($string);
     $this->assertCount(4, $emojis);
+
     $this->assertSame('lime', $emojis[0]['short_name']);
     $this->assertSame('woman_running_facing_right', $emojis[1]['short_name']);
     $this->assertSame('phoenix', $emojis[2]['short_name']);
     $this->assertSame('head_shaking_vertically', $emojis[3]['short_name']);
   }
-  */
 
 }
