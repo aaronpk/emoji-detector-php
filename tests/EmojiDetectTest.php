@@ -64,6 +64,26 @@ class EmojiDetectTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame(15, $emoji['byte_offset']);
   }
 
+  public function testUnqualifiedSkinToneEmoji() {
+    $string = '🤦🏻‍♀️🤦🏽‍♀';
+    $emojis = detect_emoji($string);
+    $this->assertCount(2, $emojis);
+
+    $emoji = array_shift($emojis);
+    $this->assertSame('🤦🏻‍♀️', $emoji['emoji']);
+    $this->assertSame('woman-facepalming', $emoji['short_name']);
+    $this->assertSame('skin-tone-2', $emoji['skin_tone']);
+    $this->assertSame('1F926-1F3FB-200D-2640-FE0F', $emoji['hex_str']);
+    $this->assertSame(0, $emoji['byte_offset']);
+
+    $emoji = array_shift($emojis);
+    $this->assertSame('🤦🏽‍♀', $emoji['emoji']);
+    $this->assertSame('woman-facepalming', $emoji['short_name']);
+    $this->assertSame('skin-tone-4', $emoji['skin_tone']);
+    $this->assertSame('1F926-1F3FD-200D-2640', $emoji['hex_str']);
+    $this->assertSame(17, $emoji['byte_offset']);
+  }
+
   public function testBigMessyMixOfEmoji() {
     $string = "🇩🇪🏳‍🌈🏳️a🤝🤝🏾🤝b🤝🤝🏾e😮‍💨f👀🤝🏾🏳‍🌈😶‍🌫️☝️☝🇩🇪";
     $emojis = detect_emoji($string);

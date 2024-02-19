@@ -41,6 +41,10 @@ foreach($emoji_data as $emoji) {
       $longest_emoji = max($longest_emoji, $len);
 
       $map[$var['unified']] = $short_name;
+
+      if(isset($var['non_qualified'])) {
+        $map[$var['non_qualified']] = $short_name;
+      }
     }
   }
 }
