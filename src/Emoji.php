@@ -127,6 +127,19 @@ function replace_emoji($string, $prefix='', $suffix='') {
   return $string;
 }
 
+function remove_emoji($string) {
+  $emojis = \Emoji\detect_emoji($string);
+
+  foreach (array_reverse($emojis) as $emoji) {
+    $length = strlen($emoji['emoji']);
+    $start = substr($string, 0, $emoji['byte_offset']);
+    $end = substr($string, $emoji['byte_offset'] + $length, strlen($string) - ($emoji['byte_offset'] + $length));
+    $string = $start . $end;
+  }
+
+  return $string;
+}
+
 function _load_map() {
   return json_decode(file_get_contents(dirname(__FILE__).'/map.json'), true);
 }
