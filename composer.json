@@ -33,6 +33,6 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "build": "php build/generate-map.php"
+    "build": "php build/build.php"
   }
 }
