@@ -127,13 +127,18 @@ function replace_emoji($string, $prefix='', $suffix='') {
   return $string;
 }
 
-function remove_emoji($string) {
+function remove_emoji($string, $opts=[]) {
   $emojis = \Emoji\detect_emoji($string);
 
   foreach (array_reverse($emojis) as $emoji) {
     $length = strlen($emoji['emoji']);
     $start = substr($string, 0, $emoji['byte_offset']);
     $end = substr($string, $emoji['byte_offset'] + $length, strlen($string) - ($emoji['byte_offset'] + $length));
+
+    if(isset($opts['collapse']) && $opts['collapse']) {
+      $end = trim($end);
+    }
+
     $string = $start . $end;
   }
 
