@@ -1,7 +1,7 @@
 <?php
 namespace Emoji;
 
-define('LONGEST_EMOJI', 8);
+define('LONGEST_EMOJI', 10);
 
 function detect_emoji($string) {
   // Find all the emoji in the input string
