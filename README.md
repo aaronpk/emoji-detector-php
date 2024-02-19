@@ -152,13 +152,33 @@ echo Emoji\remove_emoji($string, ['collapse' => true]);
 // "I like and";
 ```
 
+Updates
+-------
+
+When a new emoji set is released, this library will need to be updated with the new unicode points and names. The source of the emoji data is [iamcal/emoji-data](https://github.com/iamcal/emoji-data), so first check there for the latest updates. You can build the new source files this library uses with the following command:
+
+```
+composer build
+```
+
+
+Tests
+-----
+
+A comprehensive set of tests is available to ensure things are working as expected, including tests for the new emoji added in new emoji versions. You can run the tests with the following command:
+
+```
+composer test
+```
+
+
 
 License
 -------
 
-Copyright 2017-2024 by Aaron Parecki.
+Made with ❤️ by Aaron Parecki.
 
-Available under the MIT license.
+Copyright 2017-2024 by Aaron Parecki. Available under the MIT license.
 
 Emoji data sourced from [iamcal/emoji-data](https://github.com/iamcal/emoji-data) under the MIT license.
 
