@@ -135,11 +135,23 @@ $emoji = Emoji\is_single_emoji('😻🐈');
 // false
 ```
 
+### Remove emoji from a string
+
+You can remove all emoji from a string with this function, optionally removing trailing spaces.
+
+```php
+$string = "I like 🌮 and 🌯";
+echo Emoji\remove_emoji($string);
+// "I like  and "
+echo Emoji\remove_emoji($string, ['collapse' => true]);
+// "I like and";
+```
+
 
 License
 -------
 
-Copyright 2017-2022 by Aaron Parecki.
+Copyright 2017-2024 by Aaron Parecki.
 
 Available under the MIT license.
 
