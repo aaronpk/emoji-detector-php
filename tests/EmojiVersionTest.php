@@ -55,9 +55,16 @@ class EmojiVersionTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('1FABF', $emoji[0]['hex_str']);
     $this->assertSame(0, $emoji[0]['byte_offset']);
     $this->assertSame('🪿', is_single_emoji($string)['emoji']);
+
+    $string = "👨🏻‍🦰👨🏿‍🦰";
+    $emojis = detect_emoji($string);
+    $this->assertCount(2, $emojis);
+    $this->assertSame('red_haired_man', $emojis[0]['short_name']);
+    $this->assertSame('red_haired_man', $emojis[1]['short_name']);
+    $this->assertSame('skin-tone-6', $emojis[1]['skin_tone']);
   }
 
-  public function testEmoji51_1() {
+  public function testEmoji15_1() {
     # Spot check a few emoji from Emoji 15.1
     # https://emojipedia.org/emoji-15.1/
     $string = '🍋‍🟩🏃‍♀️‍➡️🐦‍🔥🙂‍↕️';
@@ -68,6 +75,8 @@ class EmojiVersionTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('woman_running_facing_right', $emojis[1]['short_name']);
     $this->assertSame('phoenix', $emojis[2]['short_name']);
     $this->assertSame('head_shaking_vertically', $emojis[3]['short_name']);
+
+    $this->assertSame('🍋‍🟩', is_single_emoji("🍋‍🟩")['emoji']);
   }
 
 }
