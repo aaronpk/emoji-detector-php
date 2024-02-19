@@ -33,6 +33,7 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "build": "php build/build.php"
+    "build": "php build/build.php",
+    "build-reverse": "php build/build-reverse.php"
   }
 }
