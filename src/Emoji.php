@@ -6,7 +6,7 @@ define('LONGEST_EMOJI', 8);
 function detect_emoji($string) {
   // Find all the emoji in the input string
 
-  $prevencoding = mb_internal_encoding();
+  $prev_encoding = mb_internal_encoding();
   mb_internal_encoding('UTF-8');
 
   $data = array();
@@ -70,8 +70,8 @@ function detect_emoji($string) {
     }
   }
 
-  if($prevencoding)
-    mb_internal_encoding($prevencoding);
+  if($prev_encoding)
+    mb_internal_encoding($prev_encoding);
 
   return $data;
 }
@@ -85,7 +85,7 @@ function get_first_emoji($string) {
 }
 
 function is_single_emoji($string) {
-  $prevencoding = mb_internal_encoding();
+  $prev_encoding = mb_internal_encoding();
   mb_internal_encoding('UTF-8');
 
   // If the string is longer than the longest emoji, it's not a single emoji
@@ -109,8 +109,8 @@ function is_single_emoji($string) {
       $emoji = false;
   }
 
-  if($prevencoding)
-    mb_internal_encoding($prevencoding);
+  if($prev_encoding)
+    mb_internal_encoding($prev_encoding);
 
   return $emoji;
 }
