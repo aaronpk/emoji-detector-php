@@ -79,4 +79,21 @@ class EmojiVersionTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('🍋‍🟩', is_single_emoji("🍋‍🟩")['emoji']);
   }
 
+  public function testEmoji16_0() {
+    # Spot check a few emoji from Emoji 16.0
+    # https://emojipedia.org/emoji-16.0/
+    $string = '🫩🫆🪾🫜🪉🪏';
+    $emojis = detect_emoji($string);
+    $this->assertCount(6, $emojis);
+
+    $this->assertSame('face_with_bags_under_eyes', $emojis[0]['short_name']);
+    $this->assertSame('fingerprint', $emojis[1]['short_name']);
+    $this->assertSame('leafless_tree', $emojis[2]['short_name']);
+    $this->assertSame('root_vegetable', $emojis[3]['short_name']);
+    $this->assertSame('harp', $emojis[4]['short_name']);
+    $this->assertSame('shovel', $emojis[5]['short_name']);
+
+    $this->assertSame('🫩', is_single_emoji("🫩")['emoji']);
+  }
+
 }
