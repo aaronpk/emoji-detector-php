@@ -158,14 +158,30 @@ function is_single_emoji($string) {
   return $emoji;
 }
 
-function replace_emoji($string, $prefix='', $suffix='') {
+
+/**
+ * Replace Emoji
+ *
+ * @param string $string
+ * @param string $prefix
+ * @param string $suffix
+ * @param string $index
+ * @return string
+ */
+function replace_emoji($string, $prefix='', $suffix='', $index='short_name') {
   while ($emoji = get_first_emoji($string)) {
     $offset = $emoji['byte_offset'];
     $length = strlen($emoji['emoji']);
     $strlen = strlen($string);
     $start = substr($string, 0, $offset);
     $end = substr($string, $offset + $length, $strlen - ($offset + $length));
-    $string = $start.$prefix.$emoji['short_name'].$suffix.$end;
+
+    // Check index
+    if (empty($index)) {
+      $index = 'short_name';
+    }
+
+    $string = $start.$prefix.$emoji[$index].$suffix.$end;
   }
   return $string;
 }
