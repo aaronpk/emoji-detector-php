@@ -132,7 +132,11 @@ function is_single_emoji($string) {
   mb_internal_encoding('UTF-8');
 
   // If the string is longer than the longest emoji, it's not a single emoji
-  if(mb_strlen($string) >= LONGEST_EMOJI) return false;
+  if(mb_strlen($string) > LONGEST_EMOJI) {
+    if($prev_encoding)
+      mb_internal_encoding($prev_encoding);
+    return false;
+  }
 
   $all_emoji = detect_emoji($string);
 

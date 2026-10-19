@@ -31,15 +31,8 @@ foreach($emoji_data as $emoji) {
     }
   }
 
-  $len = count(explode('-', $short_name));
-  $longest_emoji = max($longest_emoji, $len);
-
   if(isset($emoji['skin_variations'])) {
     foreach($emoji['skin_variations'] as $key=>$var) {
-
-      $len = count(explode('-', $var['unified']));
-      $longest_emoji = max($longest_emoji, $len);
-
       $map[$var['unified']] = $short_name;
 
       if(isset($var['non_qualified'])) {
@@ -47,6 +40,11 @@ foreach($emoji_data as $emoji) {
       }
     }
   }
+}
+
+// Count the code points of every sequence in the map, including skin tone variations
+foreach(array_keys($map) as $key) {
+  $longest_emoji = max($longest_emoji, count(explode('-', $key)));
 }
 
 echo "Longest Emoji: $longest_emoji\n";
