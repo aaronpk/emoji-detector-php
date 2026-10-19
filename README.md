@@ -3,11 +3,11 @@ Emoji Detection
 
 This library will find all emoji in an input string and return information about each emoji character. It supports emoji with skin tone modifiers, as well as the composite emoji that are made up of multiple people.
 
-The current version supports Emoji version 16.0 (Oct 2024)
+The current version supports Emoji version 17.0 (Sept 2025)
 
 You can see a catalog of the emoji data here:
 
-* https://unicode.org/Public/emoji/16.0/emoji-test.txt
+* https://www.unicode.org/Public/17.0.0/emoji/emoji-test.txt
 * http://projects.iamcal.com/emoji-data/table.htm
 
 

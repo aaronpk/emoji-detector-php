@@ -96,4 +96,41 @@ class EmojiVersionTest extends \PHPUnit\Framework\TestCase {
     $this->assertSame('🫩', is_single_emoji("🫩")['emoji']);
   }
 
+  public function testEmoji17_0() {
+    # Spot check a few emoji from Emoji 17.0
+    # https://emojipedia.org/emoji-17.0/
+    $string = '🫪🫯🫈🫍🛘🪊🪎🧑‍🩰';
+    $emojis = detect_emoji($string);
+    $this->assertCount(8, $emojis);
+
+    $this->assertSame('distorted_face', $emojis[0]['short_name']);
+    $this->assertSame('fight_cloud', $emojis[1]['short_name']);
+    $this->assertSame('hairy_creature', $emojis[2]['short_name']);
+    $this->assertSame('orca', $emojis[3]['short_name']);
+    $this->assertSame('landslide', $emojis[4]['short_name']);
+    $this->assertSame('trombone', $emojis[5]['short_name']);
+    $this->assertSame('treasure_chest', $emojis[6]['short_name']);
+    $this->assertSame('ballet_dancer', $emojis[7]['short_name']);
+
+    $this->assertSame('🫪', is_single_emoji("🫪")['emoji']);
+
+    # Emoji 17.0 also adds skin tones to wrestlers and people with bunny ears
+    $string = '🧑🏽‍🩰 🤼🏽 👯🏿 🧑🏻‍🫯‍🧑🏿 👩🏾‍🐰‍👩🏻';
+    $emojis = detect_emoji($string);
+    $this->assertCount(5, $emojis);
+
+    $this->assertSame('ballet_dancer', $emojis[0]['short_name']);
+    $this->assertSame('skin-tone-4', $emojis[0]['skin_tone']);
+    $this->assertSame('wrestlers', $emojis[1]['short_name']);
+    $this->assertSame('skin-tone-4', $emojis[1]['skin_tone']);
+    $this->assertSame('dancers', $emojis[2]['short_name']);
+    $this->assertSame('skin-tone-6', $emojis[2]['skin_tone']);
+    $this->assertSame('wrestlers', $emojis[3]['short_name']);
+    $this->assertSame('1F9D1-1F3FB-200D-1FAEF-200D-1F9D1-1F3FF', $emojis[3]['hex_str']);
+    $this->assertSame('women-with-bunny-ears-partying', $emojis[4]['short_name']);
+    $this->assertSame('1F469-1F3FE-200D-1F430-200D-1F469-1F3FB', $emojis[4]['hex_str']);
+
+    $this->assertSame('wrestlers', is_single_emoji("🧑🏻‍🫯‍🧑🏿")['short_name']);
+  }
+
 }
